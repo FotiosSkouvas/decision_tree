@@ -47,31 +47,6 @@ with dataset:
             if clean == 'Yes':
                 st.success('You can proceed with the analysis')
 
-                #Data visualization option:
-                with data_visualization:
-                    import plotly.express 
-                    st.header('Data Visualization')
-                    st.markdown('In this section you will have the opportunity to visualize your dataset')
-                    opt_vis = st.radio(
-                    'Please select your preferred plotting option: ',
-                    ('Scatter Plot', 'Pie Chart'))
-                    if opt_vis == 'Scatter Plot':
-                        x_axis = st.selectbox('Please select x axis:',
-                        pred_data.columns)
-                        y_axis = st.selectbox('Please select y axis:',
-                        pred_data.columns)
-                        st.markdown('*Scatter Plot*')
-                        fig_1 = plotly.express.scatter(pred_data, x = pred_data[x_axis], y = pred_data[y_axis])
-                        st.plotly_chart(fig_1)
-                    else:
-                        st.markdown('*Pie chart*')
-                        val_1 = st.selectbox('Please select the pie chart value:',
-                        pred_data.columns)
-                        fig_2, ax = plt.subplots()
-                        ax.pie(pred_data[val_1].value_counts(), labels = pred_data[val_1].unique(), autopct='%1.1f%%')
-                        ax.set_title(val_1)
-                        st.pyplot(fig_2)
-
                 #Data quering
                 with data_quering:
                     st.header('Possible Root Cause')
