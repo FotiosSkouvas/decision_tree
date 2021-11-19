@@ -2,10 +2,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import plotly.express as px
-from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeRegressor
-from sklearn import metrics
+
 
 #Statement of our multi-element containers
 header = st.container()
@@ -50,8 +47,10 @@ with dataset:
             if clean == 'Yes':
                 st.success('You can proceed with the analysis')
 
-                #Data visualization options
+                #Data visualization option:
                 with data_visualization:
+                    import matplotlib.pyplot as plt
+                    import plotly.express as px
                     st.header('Data Visualization')
                     st.markdown('In this section you will have the opportunity to visualize your dataset')
                     opt_vis = st.radio(
@@ -92,6 +91,9 @@ with dataset:
 
                 #Data modeling
                 with data_modeling:
+                    from sklearn.model_selection import train_test_split
+                    from sklearn.tree import DecisionTreeRegressor
+                    from sklearn import metrics
                     st.header('Model Training')
                     X = pred_data.drop(['Product ID', 'Type', root_cause], axis=1)
                     y = pred_data[root_cause]
