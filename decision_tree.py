@@ -49,8 +49,7 @@ with dataset:
 
                 #Data visualization option:
                 with data_visualization:
-                    import matplotlib.pyplot as plt
-                    import plotly.express as px
+                    import plotly.express 
                     st.header('Data Visualization')
                     st.markdown('In this section you will have the opportunity to visualize your dataset')
                     opt_vis = st.radio(
@@ -62,7 +61,7 @@ with dataset:
                         y_axis = st.selectbox('Please select y axis:',
                         pred_data.columns)
                         st.markdown('*Scatter Plot*')
-                        fig_1 = px.scatter(pred_data, x = pred_data[x_axis], y = pred_data[y_axis])
+                        fig_1 = plotly.express.scatter(pred_data, x = pred_data[x_axis], y = pred_data[y_axis])
                         st.plotly_chart(fig_1)
                     else:
                         st.markdown('*Pie chart*')
