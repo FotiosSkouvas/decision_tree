@@ -1,4 +1,3 @@
-py -m pip install SomePackage
 #import essential libraries
 import streamlit as st
 import pandas as pd
