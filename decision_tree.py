@@ -2,7 +2,11 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-
+import matplotlib.pyplot as plt
+import plotly.express as px
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeRegressor
+from sklearn import metrics
 
 #Statement of our multi-element containers
 header = st.container()
@@ -47,6 +51,30 @@ with dataset:
             if clean == 'Yes':
                 st.success('You can proceed with the analysis')
 
+                #Data visualization options
+                with data_visualization:
+                    st.header('Data Visualization')
+                    st.markdown('In this section you will have the opportunity to visualize your dataset')
+                    opt_vis = st.radio(
+                    'Please select your preferred plotting option: ',
+                    ('Scatter Plot', 'Pie Chart'))
+                    if opt_vis == 'Scatter Plot':
+                        x_axis = st.selectbox('Please select x axis:',
+                        pred_data.columns)
+                        y_axis = st.selectbox('Please select y axis:',
+                        pred_data.columns)
+                        st.markdown('*Scatter Plot*')
+                        fig_1 = px.scatter(pred_data, x = pred_data[x_axis], y = pred_data[y_axis])
+                        st.plotly_chart(fig_1)
+                    else:
+                        st.markdown('*Pie chart*')
+                        val_1 = st.selectbox('Please select the pie chart value:',
+                        pred_data.columns)
+                        fig_2, ax = plt.subplots()
+                        ax.pie(pred_data[val_1].value_counts(), labels = pred_data[val_1].unique(), autopct='%1.1f%%')
+                        ax.set_title(val_1)
+                        st.pyplot(fig_2)
+
                 #Data quering
                 with data_quering:
                     st.header('Possible Root Cause')
@@ -65,9 +93,6 @@ with dataset:
 
                 #Data modeling
                 with data_modeling:
-                    from sklearn.model_selection import train_test_split
-                    from sklearn.tree import DecisionTreeRegressor
-                    from sklearn import metrics
                     st.header('Model Training')
                     X = pred_data.drop(['Product ID', 'Type', root_cause], axis=1)
                     y = pred_data[root_cause]
