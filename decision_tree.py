@@ -20,30 +20,30 @@ data_modeling = st.container()
 with header:
     st.title('Predictive Maintenance')
     st.markdown('**Sooner or Later, all machines run to a failure!**')
-    st.markdown('Predictive Maintenance is a type of condition based maintenance where maintenance is only scheduled when specific conditions are met and before the equipment breaks down.')
+    st.markdown('Predictive maintenance refers to the use of data-driven, proactive maintenance methods that are designed to analyze the condition of equipment and help predict when specific conditions are met and before the equipment breaks down.')
 #Insert of dataset
 with dataset:
     st.header('Dataset')
-    st.markdown('Using this application, you will have the opportunity to analyze your dataset and find estimate when the maintence should be performed to repair the damaged parts')
+    st.markdown('*Our application allows you to explore your dataset, visualize selected features, perform simple searches through queries and predict possible failures.*')
     uploaded_file = st.file_uploader("First of all, choose a CSV file:")
     if uploaded_file is not None:
-        st.write('To ensure that you have provided the right dataset, below you will find the first five rows of your dataset: ')
         pred_data = pd.read_csv(uploaded_file)
+        st.write('Below are presented the first five rows of your dataset, in order to ensure that you have provided the right dataset: ')
         st.write(pred_data.head(5))
 
         #Dataset Overview
         with data_overview:
             st.header('Dataset Overview')
-            st.markdown('Now you will have the oportunity to see the structure of your dataset:')
+            st.markdown('First, you will have the oportunity to see the structure of your dataset:')
             st.markdown('*Your dataset contains the following columns:*')
             st.write(pred_data.columns)
-            st.markdown('You will now have the opportunity to check if your dataset contains outliers.')
+            st.markdown('Now, you will have the opportunity to check if your dataset contains outliers.')
             st.markdown('*The table below provides a description of your dataset:*')
             st.write(pred_data.describe())
             st.markdown('The non NULL analysis provided below, will help you check if there are missing values in your dataset.')
             st.markdown('*Non NULL values analysis:*')
             st.write(pred_data.count())
-            st.markdown('Here, we should provide a description of the values of the dataset, in order to check the dataset for format issues, but there is a problem with dtypes function at streamlit')
+            st.markdown('*Here, we should provide a description of the values of the dataset, in order to check the dataset for format issues, but there is a problem with dtypes function at streamlit (Unable to convert numpy.dtype to pyarrow.DataType. This is likely due to a bug in Arrow)*')
             st.header('Data Cleaning')
             clean = st.radio(
             'Is your data clean?',
