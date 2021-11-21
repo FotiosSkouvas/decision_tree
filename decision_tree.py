@@ -43,7 +43,7 @@ with dataset:
             st.markdown('The non NULL analysis provided below, will help you check if there are missing values in your dataset.')
             st.markdown('*Non NULL values analysis:*')
             st.write(pred_data.count())
-            st.markdown('*Here, we should provide a description of the values of the dataset, in order to check the dataset for format issues, but there is a problem with dtypes function at streamlit (Unable to convert numpy.dtype to pyarrow.DataType. This is likely due to a bug in Arrow)*')
+            st.markdown('*Here, we should provide a description of the values of the dataset, in order to check the dataset for format issues, but there is a problem with dtypes function at streamlit (Unable to convert numpy.dtype to pyarrow.DataType. This is likely due to a bug in Arrow).*')
             st.header('Data Cleaning')
             clean = st.radio(
             'Is your data clean?',
@@ -54,9 +54,9 @@ with dataset:
                 #Data visualization options
                 with data_visualization:
                     st.header('Data Visualization')
-                    st.markdown('In this section you will have the opportunity to visualize your dataset')
+                    st.markdown('In this section you will have the opportunity to visualize your dataset as a scatter plot or as a pie chart. The scatter plot visualizes the comparison of two selected values. The pie chart provides visualization of the statistics for one selected value of your dataset.')
                     opt_vis = st.radio(
-                    'Please select your preferred plotting option: ',
+                    'Please select your preferred plot: ',
                     ('Scatter Plot', 'Pie Chart'))
                     if opt_vis == 'Scatter Plot':
                         x_axis = st.selectbox('Please select x axis:',
@@ -68,7 +68,7 @@ with dataset:
                         st.plotly_chart(fig_1)
                     else:
                         st.markdown('*Pie chart*')
-                        val_1 = st.selectbox('Please select the pie chart value:',
+                        val_1 = st.selectbox('Please select the value:',
                         pred_data.columns)
                         fig_2, ax = plt.subplots()
                         ax.pie(pred_data[val_1].value_counts(), labels = pred_data[val_1].unique(), autopct='%1.1f%%')
@@ -77,8 +77,8 @@ with dataset:
 
                 #Data quering
                 with data_quering:
-                    st.header('Possible Root Cause')
-                    st.markdown('You will now have the opportunity to identify the possible root cause of failures and model each failure:')
+                    st.header('Possible Cause')
+                    st.markdown('You will now have the opportunity to compare a system failure with one possible cause:')
                     root_cause = st.selectbox('Please select a failure category of your system:',
                     pred_data.columns)
                     pred_data_root = pred_data[pred_data[root_cause]==1]
@@ -94,6 +94,8 @@ with dataset:
                 #Data modeling
                 with data_modeling:
                     st.header('Model Training')
+                    st.markdown('Our application will now try to make predictions for your selected failure. Our application uses the decision tree method."
+                    st.markdown('*The following table shows the actual and the predicted values of the selected failure: *')    
                     X = pred_data.drop(['Product ID', 'Type', root_cause], axis=1)
                     y = pred_data[root_cause]
                     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
@@ -105,6 +107,7 @@ with dataset:
                     st.write(df)
                     #Evaluation of model
                     st.markdown('Evaluation of the model')
+                    st.markdown('*The metrics below are used to evaluate the predictions of our model.+')
                     st.write('Mean Absolute Error:', metrics.mean_absolute_error(y_test, y_pred))
                     st.write('Mean Squared Error:', metrics.mean_squared_error(y_test, y_pred))
                     st.write('Root Mean Squared Error:', np.sqrt(metrics.mean_squared_error(y_test, y_pred)))
