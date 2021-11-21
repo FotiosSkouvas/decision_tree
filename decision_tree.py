@@ -94,7 +94,7 @@ with dataset:
                 #Data modeling
                 with data_modeling:
                     st.header('Model Training')
-                    st.markdown('Our application will now try to make predictions for your selected failure. Our application uses the decision tree method."
+                    st.markdown('Our application will now try to make predictions for your selected failure. Our application uses the decision tree method.')
                     st.markdown('*The following table shows the actual and the predicted values of the selected failure: *')    
                     X = pred_data.drop(['Product ID', 'Type', root_cause], axis=1)
                     y = pred_data[root_cause]
